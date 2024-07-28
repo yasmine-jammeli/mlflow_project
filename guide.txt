@@ -1,0 +1,5 @@
+steps:
+creat virtual env
+pip install mlflow
+pip install setuptools
+mlflow ui  ctr c

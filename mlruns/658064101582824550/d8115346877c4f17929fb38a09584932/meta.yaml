@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/658064101582824550/d8115346877c4f17929fb38a09584932/artifacts
+end_time: 1721909935406
+entry_point_name: ''
+experiment_id: '658064101582824550'
+lifecycle_stage: active
+run_id: d8115346877c4f17929fb38a09584932
+run_name: glamorous-conch-106
+run_uuid: d8115346877c4f17929fb38a09584932
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721909928929
+status: 3
+tags: []
+user_id: pc

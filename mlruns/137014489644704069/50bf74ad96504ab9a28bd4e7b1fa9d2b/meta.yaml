@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/137014489644704069/50bf74ad96504ab9a28bd4e7b1fa9d2b/artifacts
+end_time: 1721909279254
+entry_point_name: ''
+experiment_id: '137014489644704069'
+lifecycle_stage: active
+run_id: 50bf74ad96504ab9a28bd4e7b1fa9d2b
+run_name: clean-hound-639
+run_uuid: 50bf74ad96504ab9a28bd4e7b1fa9d2b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721909273279
+status: 3
+tags: []
+user_id: pc

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/152850506008598151/99f20149079a4026bde31970bf23d518/artifacts
+end_time: 1721909942423
+entry_point_name: ''
+experiment_id: '152850506008598151'
+lifecycle_stage: active
+run_id: 99f20149079a4026bde31970bf23d518
+run_name: handsome-gnat-203
+run_uuid: 99f20149079a4026bde31970bf23d518
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721909935483
+status: 3
+tags: []
+user_id: pc

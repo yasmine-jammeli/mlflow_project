@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/311299627732871934/dfa1e849116d470e8c18151d6f703146/artifacts
+end_time: 1721904717375
+entry_point_name: ''
+experiment_id: '311299627732871934'
+lifecycle_stage: active
+run_id: dfa1e849116d470e8c18151d6f703146
+run_name: languid-snail-595
+run_uuid: dfa1e849116d470e8c18151d6f703146
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1721904711156
+status: 3
+tags: []
+user_id: pc
