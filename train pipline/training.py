@@ -5,6 +5,7 @@ from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, precision_score, recall_score, f1_score
 from xgboost import XGBClassifier
 from sklearn.tree import DecisionTreeClassifier
+import lightgbm as lgb
 import mlflow
 import mlflow.sklearn
 
@@ -64,7 +65,7 @@ def train_and_log_model(params, model_cls, X_train, y_train, X_test, y_test, exp
         print("Classification Report:\n", classification_report(y_test, y_pred))
 
 def main():
-    filepath = 'C:/Users/pc/Desktop/Nesrin master/combined_features_with_more_feauture.csv'
+    filepath = 'C:/Users/pc/Desktop/Nesrin master/combined_features_with_more_Time_feauture.csv'
     combined_df = load_data(filepath)
     X_train, X_test, y_train, y_test = split_data(combined_df)
     X_train, X_test = scale_data(X_train, X_test)
@@ -99,6 +100,21 @@ def main():
         experiment_name = f"DecisionTree_Exp_{idx+1}_Criterion_{params['criterion']}_Depth_{params.get('max_depth', 'None')}"
         model_name = f"DecisionTree_Model_{idx+1}"
         train_and_log_model(params, DecisionTreeClassifier, X_train_selected, y_train, X_test_selected, y_test, experiment_name, model_name)
+    
+    lgb_param_configs = [
+        {'n_estimators': 100, 'max_depth': 4, 'learning_rate': 0.01, 'subsample': 0.8, 'colsample_bytree': 0.8, 'reg_lambda': 0.1, 'reg_alpha': 0.1},
+        {'n_estimators': 150, 'max_depth': 6, 'learning_rate': 0.1, 'subsample': 0.9, 'colsample_bytree': 0.9, 'reg_lambda': 0.2, 'reg_alpha': 0.2},
+        {'n_estimators': 200, 'max_depth': 8, 'learning_rate': 0.2, 'subsample': 1.0, 'colsample_bytree': 1.0, 'reg_lambda': 0.3, 'reg_alpha': 0.3},
+        {'n_estimators': 250, 'max_depth': 10, 'learning_rate': 0.3, 'subsample': 0.8, 'colsample_bytree': 0.9, 'reg_lambda': 0.4, 'reg_alpha': 0.4},
+        {'n_estimators': 300, 'max_depth': 12, 'learning_rate': 0.1, 'subsample': 0.9, 'colsample_bytree': 1.0, 'reg_lambda': 0.5, 'reg_alpha': 0.5},
+        {'n_estimators': 350, 'max_depth': 15, 'learning_rate': 0.2, 'subsample': 1.0, 'colsample_bytree': 0.8, 'reg_lambda': 0.6, 'reg_alpha': 0.6},
+        {'n_estimators': 400, 'max_depth': 20, 'learning_rate': 0.3, 'subsample': 0.8, 'colsample_bytree': 0.9, 'reg_lambda': 0.7, 'reg_alpha': 0.7}
+    ]
+    
+    for idx, params in enumerate(lgb_param_configs):
+        experiment_name = f"LightGBM_Exp_{idx+1}"
+        model_name = f"LightGBM_Model_{idx+1}"
+        train_and_log_model(params, lgb.LGBMClassifier, X_train_selected, y_train, X_test_selected, y_test, experiment_name, model_name)
 
 if __name__ == "__main__":
     main()

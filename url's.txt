@@ -1,0 +1,13 @@
+https://xgboost.readthedocs.io/en/stable/
+https://lightgbm.readthedocs.io/en/stable/
+https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+https://datascientest.com/machine-learning-tout-savoir
+https://datascientest.com/data-science-definition
+https://ubiai.tools/the-secret-to-mastering-feature-extraction-in-convolutional-neural-network/#:~:text=Feature%20extraction%20is%20a%20critical,on%20CNNs%20in%202023.
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10235576/#:~:text=The%20Neurovista%20ictal%20dataset%2C%20which,albeit%20with%20shorter%20preictal%20data.
+http://compneurosci.com/wiki/images/4/42/Intro_to_PCA_and_ICA.pdf
+https://support.google.com/drive/?hl=fr#topic=14940
+https://mlflow.org/docs/latest/index.html
+https://dagshub.com/docs/
+https://docs.github.com/fr
+https://code.visualstudio.com/docs
