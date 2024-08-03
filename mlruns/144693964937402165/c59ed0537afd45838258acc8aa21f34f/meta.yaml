@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/144693964937402165/c59ed0537afd45838258acc8aa21f34f/artifacts
+end_time: 1722695004650
+entry_point_name: ''
+experiment_id: '144693964937402165'
+lifecycle_stage: active
+run_id: c59ed0537afd45838258acc8aa21f34f
+run_name: abrasive-finch-582
+run_uuid: c59ed0537afd45838258acc8aa21f34f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722694998990
+status: 3
+tags: []
+user_id: pc

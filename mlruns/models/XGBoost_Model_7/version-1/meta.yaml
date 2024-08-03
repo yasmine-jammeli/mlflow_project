@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1722695014136
+current_stage: None
+description: null
+last_updated_timestamp: 1722695014136
+name: XGBoost_Model_7
+run_id: a078d4dd5e194f7aa947832fc0778257
+run_link: null
+source: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/364860592364250229/a078d4dd5e194f7aa947832fc0778257/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/364860592364250229/a078d4dd5e194f7aa947832fc0778257/artifacts/model
+user_id: null
+version: 1

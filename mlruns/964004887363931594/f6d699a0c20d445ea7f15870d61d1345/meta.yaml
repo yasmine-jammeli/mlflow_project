@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/964004887363931594/f6d699a0c20d445ea7f15870d61d1345/artifacts
+end_time: 1722695081044
+entry_point_name: ''
+experiment_id: '964004887363931594'
+lifecycle_stage: active
+run_id: f6d699a0c20d445ea7f15870d61d1345
+run_name: rebellious-fawn-102
+run_uuid: f6d699a0c20d445ea7f15870d61d1345
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722695075167
+status: 3
+tags: []
+user_id: pc

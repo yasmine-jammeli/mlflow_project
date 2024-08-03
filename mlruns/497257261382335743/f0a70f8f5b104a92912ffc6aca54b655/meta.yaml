@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/497257261382335743/f0a70f8f5b104a92912ffc6aca54b655/artifacts
+end_time: 1722695041618
+entry_point_name: ''
+experiment_id: '497257261382335743'
+lifecycle_stage: active
+run_id: f0a70f8f5b104a92912ffc6aca54b655
+run_name: unique-stork-109
+run_uuid: f0a70f8f5b104a92912ffc6aca54b655
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722695035971
+status: 3
+tags: []
+user_id: pc

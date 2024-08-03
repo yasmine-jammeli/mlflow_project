@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1722695075060
+current_stage: None
+description: null
+last_updated_timestamp: 1722695075060
+name: LightGBM_Model_4
+run_id: d4ecad36ac764f06adfd86095c7272b1
+run_link: null
+source: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/230954268747254083/d4ecad36ac764f06adfd86095c7272b1/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/230954268747254083/d4ecad36ac764f06adfd86095c7272b1/artifacts/model
+user_id: null
+version: 1

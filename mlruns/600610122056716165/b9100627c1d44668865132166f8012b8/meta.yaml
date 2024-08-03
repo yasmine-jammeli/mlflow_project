@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/600610122056716165/b9100627c1d44668865132166f8012b8/artifacts
+end_time: 1722695020479
+entry_point_name: ''
+experiment_id: '600610122056716165'
+lifecycle_stage: active
+run_id: b9100627c1d44668865132166f8012b8
+run_name: likeable-ram-707
+run_uuid: b9100627c1d44668865132166f8012b8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722695014220
+status: 3
+tags: []
+user_id: pc

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/298177936498182254/bc7ea0ee18b6479c917ca255372bdb65/artifacts
+end_time: 1722695068867
+entry_point_name: ''
+experiment_id: '298177936498182254'
+lifecycle_stage: active
+run_id: bc7ea0ee18b6479c917ca255372bdb65
+run_name: charming-jay-971
+run_uuid: bc7ea0ee18b6479c917ca255372bdb65
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722695062743
+status: 3
+tags: []
+user_id: pc

@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1722695051289
+current_stage: None
+description: null
+last_updated_timestamp: 1722695051289
+name: DecisionTree_Model_7
+run_id: 5d8fce0e737944778240e4c97e106aa8
+run_link: null
+source: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/416182109748485492/5d8fce0e737944778240e4c97e106aa8/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/416182109748485492/5d8fce0e737944778240e4c97e106aa8/artifacts/model
+user_id: null
+version: 1

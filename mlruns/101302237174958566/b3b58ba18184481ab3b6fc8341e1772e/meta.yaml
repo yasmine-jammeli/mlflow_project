@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/101302237174958566/b3b58ba18184481ab3b6fc8341e1772e/artifacts
+end_time: 1722694993578
+entry_point_name: ''
+experiment_id: '101302237174958566'
+lifecycle_stage: active
+run_id: b3b58ba18184481ab3b6fc8341e1772e
+run_name: enchanting-pig-523
+run_uuid: b3b58ba18184481ab3b6fc8341e1772e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722694989005
+status: 3
+tags: []
+user_id: pc

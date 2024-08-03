@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/700688114578659453/a81f8a504e804a52a24a9093740220a5/artifacts
+end_time: 1722694983979
+entry_point_name: ''
+experiment_id: '700688114578659453'
+lifecycle_stage: active
+run_id: a81f8a504e804a52a24a9093740220a5
+run_name: fearless-smelt-149
+run_uuid: a81f8a504e804a52a24a9093740220a5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722694974790
+status: 3
+tags: []
+user_id: pc

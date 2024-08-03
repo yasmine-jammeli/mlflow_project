@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/805199955121596576/a09c9b9dc1834919bebe4d55b5b053ef/artifacts
+end_time: 1722694998950
+entry_point_name: ''
+experiment_id: '805199955121596576'
+lifecycle_stage: active
+run_id: a09c9b9dc1834919bebe4d55b5b053ef
+run_name: resilient-vole-315
+run_uuid: a09c9b9dc1834919bebe4d55b5b053ef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722694993612
+status: 3
+tags: []
+user_id: pc

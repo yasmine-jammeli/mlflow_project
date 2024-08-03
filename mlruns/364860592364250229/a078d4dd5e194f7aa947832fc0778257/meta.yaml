@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/pc/Desktop/Nesrin%20master/mlruns/364860592364250229/a078d4dd5e194f7aa947832fc0778257/artifacts
+end_time: 1722695014171
+entry_point_name: ''
+experiment_id: '364860592364250229'
+lifecycle_stage: active
+run_id: a078d4dd5e194f7aa947832fc0778257
+run_name: luxuriant-boar-253
+run_uuid: a078d4dd5e194f7aa947832fc0778257
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1722695009490
+status: 3
+tags: []
+user_id: pc
