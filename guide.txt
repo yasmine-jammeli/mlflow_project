@@ -3,3 +3,7 @@ creat virtual env
 pip install mlflow
 pip install setuptools
 mlflow ui  ctr c
+pip install statsmodels
+pip install streamlit
+
+python.exe -m pip install --upgrade pip
