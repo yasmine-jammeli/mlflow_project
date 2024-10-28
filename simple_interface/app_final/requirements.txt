@@ -1,0 +1,12 @@
+streamlit
+numpy
+pandas
+torch
+mne
+PyWavelets
+matplotlib
+seaborn
+scikit-learn
+statsmodels
+scipy
+pickle5

@@ -1,0 +1,658 @@
+\chapter{Data Data Preparation, Preprocessing and Exploratory Data Analysis}
+\label{chap:fourthchapter}
+
+
+\setcounter{secnumdepth}{5}
+\renewcommand\theparagraph{\thesubsubsection.\alph{paragraph}} 
+\renewcommand\thesubparagraph{\alph{subparagraph})} 
+\section{Introduction}
+\hspace{1em} 
+In this section, we begin by discussing the dataset used in our study. After introducing the data, we will walk through the various preprocessing steps undertaken to prepare it for analysis. These techniques are crucial for enhancing the accuracy of subsequent analyses and ensuring that our results are both meaningful and reliable.
+\section{Data Description}
+
+To understand the foundation of this research, we must first describe the dataset. This segment provides a detailed look into the data's composition, offering insights into its attributes, organization, and any patterns that emerge. Once this groundwork is laid, we’ll move on to the data cleaning and transformation processes that were essential to making the dataset suitable for our objectives.
+
+\subsection{Data Source}
+
+The CHB-MIT Scalp EEG Database is a significant resource provided by PhysioNet and authored by John Guttag. The dataset, released on June 9, 2010, is available in version 1.0.0 and is governed by the Open Data Commons Attribution License v1.0. It can be accessed via the DOI \href{https://doi.org/10.13026/C2K01R}{[link]}.
+
+\subsection{Data Nature}
+
+This database encompasses EEG recordings from pediatric patients experiencing intractable seizures, collected at Children’s Hospital Boston. It is designed to facilitate the development and evaluation of algorithms for seizure detection, classification, and to support various research applications in epilepsy. The data aids in understanding seizure dynamics and contributes to advancing computational models for predicting seizures.
+
+\subsection{Data Characteristics}
+
+The dataset has a total uncompressed size of 42.6 GB and includes recordings from 23 distinct cases involving 22 subjects. This cohort comprises 5 males aged between 3 and 22 years and 17 females aged between 1.5 and 19 years. The dataset includes annotations for a total of 198 seizures, with 182 of these seizures documented in the initial set of cases.
+
+\subsection{Data Files and Structure}
+
+The dataset is organized into several key files:
+\begin{itemize}
+    \item The \textbf{RECORDS} file lists all 664 .edf files within the database.
+    \item The \textbf{RECORDS-WITH-SEIZURES} file identifies 129 files that contain one or more seizures.
+    \item The \textbf{SUBJECT-INFO} file provides demographic details such as the gender and age of each subject.
+    \item The \textbf{ANNOTATORS} file contains annotations marking seizure events.
+    \item The \textbf{SHA256SUMS.txt} file includes checksums for verifying file integrity.
+    \item The \textbf{chbnn-summary.txt} files provide details on EEG montage and the timing of seizures.
+\end{itemize}
+
+\subsection{Data Format and Details}
+
+The recordings are formatted in European Data Format (.edf) with a sampling rate of 256 samples per second and 16-bit resolution. Each file generally contains 23 EEG channels, though some files may feature up to 24 or 26 channels. Most recordings last one hour per .edf file, although some cases include recordings of two or four hours. The recordings utilize the International 10-20 system for electrode placement. Additional signals, such as ECG and vagal nerve stimulation (VNS), are present in certain files. Up to 5 dummy signals are also included for display purposes but can be disregarded for analysis.
+\subsection{Correlation Matrix, Power Spectral Density, and Histogram of EEG Signal Amplitudes}
+
+A key focus of this research is the exploration of relationships between EEG channels. The correlation matrix serves as an important analytical tool to assess the linear dependencies between signals recorded from different channels. By calculating Pearson correlation coefficients, we can visualize the interactions between channel pairs, revealing patterns of synchronization or desynchronization that are significant in the context of seizure analysis \cite{acharya2018automated}.
+
+Figure \ref{fig:correlation_matrix} provides the correlation matrix for a sample patient, displaying the strength and direction of correlations between EEG channels. Such insights help identify crucial neural interactions that may influence the onset and propagation of seizures, contributing to a better understanding of brain activity during these events \cite{wang2011interictal}.
+
+\begin{figure}[h!] 
+    \centering 
+    \includegraphics[width=1\linewidth]{Correlation Matrix of EEG Channels for Patient.png}
+    \caption{Correlation Matrix of EEG Channels for a Sample Patient} 
+    \label{fig:correlation_matrix} 
+\end{figure}
+
+The exploration of these channel relationships provides valuable information on brain connectivity during seizure activity and serves as a foundation for subsequent predictive modeling.
+
+\subsection{Power Spectral Density of EEG Channels}
+
+The Power Spectral Density (PSD) analysis offers crucial insights into how the power of the EEG signal is distributed across various frequency bands. This spectral analysis helps detect frequency-specific activity often linked to seizure dynamics \cite{schomer2012niedermeyer}.
+
+For the selected patient, we applied Welch’s method to estimate the PSD, enabling a detailed understanding of how power is distributed over different frequency ranges for each EEG channel. This analysis is instrumental in identifying patterns in the signal's power, such as increased activity in specific frequency bands like delta, theta, alpha, or beta, which are frequently associated with seizure events \cite{cohen2014analyzing}.
+
+Figure \ref{fig:psd_eeg} displays the PSD for several EEG channels, illustrating how power is distributed across frequency bands, which is vital for comprehending neural activity during both seizure and non-seizure intervals.
+
+\begin{figure}[h!] 
+    \centering 
+    \includegraphics[width=0.7\linewidth]{power density.png} 
+    \caption{Power Spectral Density of Selected EEG Channels} 
+    \label{fig:psd_eeg} 
+\end{figure}
+
+The PSD analysis complements the correlation matrix, offering a frequency-domain perspective of the EEG signals and contributing to a deeper understanding of their spectral properties, which are essential for seizure detection and prediction \cite{acharya2018automated}.
+
+\subsection{Histogram of EEG Signal Amplitudes}
+
+In addition to correlation and spectral analysis, it is crucial to examine the distribution of EEG signal amplitudes to better understand the overall nature of the data. The amplitude histogram offers a clear visual representation of the voltage values recorded, providing insights into the variability and range of the signal over time \cite{frank2013automatic}.
+
+We computed the histogram of EEG signal amplitudes across all channels, which helps identify any outliers or deviations that may correlate with seizure activity. This distribution is particularly useful for recognizing any anomalies in the data that could signify abnormal brain activity.
+
+Figure \ref{fig:histogram_eeg} presents the histogram of EEG signal amplitudes, showing the frequency of different amplitude values along the x-axis.
+
+\begin{figure}[h!] 
+    \centering 
+    \includegraphics[width=1\linewidth]{Histogram of EEG Signal Amplitudes for Patient.png}
+    \caption{Histogram of EEG Signal Amplitudes} 
+    \label{fig:histogram_eeg} 
+\end{figure}
+
+This amplitude distribution helps provide a comprehensive understanding of the EEG signal's variability. When combined with correlation and spectral analyses, it offers a multi-faceted view of the EEG data, helping to inform the development of robust predictive models for seizure detection \cite{frank2013automatic}.
+
+
+
+\subsection{Related Publications}
+
+The dataset is referenced in several important works, including Ali Shoeb’s PhD thesis on machine learning approaches to seizure onset detection, completed at MIT in 2009. Further details can be found in Shoeb and Guttag’s presentation at the 27th International Conference on Machine Learning (ICML) in 2010, and in Shoeb et al.'s publication on patient-specific seizure detection in \textit{Epilepsy \& Behavior}, 2004.
+
+\subsection{Acknowledgements}
+
+The CHB-MIT Scalp EEG Database was developed through the collaborative efforts of Children’s Hospital Boston and the Massachusetts Institute of Technology. Key contributors include Jack Connolly, Herman Edwards, Blaise Bourgeois, S. Ted Treves, Ali Shoeb, and John Guttag.
+
+\subsection{Subject Demographics}
+
+To better understand the dataset, we present the demographics of the subjects included. The dataset consists of EEG recordings from 24 patients, encompassing 23 unique individuals and an additional set of recordings from one of these patients. The age range of these subjects spans from 1.5 to 22 years.
+
+
+
+Figure \ref{fig:age_distribution} illustrates the age distribution of the subjects in the dataset, showing a broad range of ages.
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Age Distribution in CHB-MIT Scalp EEG Database.jpeg}
+    \caption{Age Distribution in CHB-MIT Scalp EEG Database}
+    \label{fig:age_distribution}
+\end{figure}
+
+Additionally, the dataset reflects a gender distribution with 5 males and 19 females. 
+
+\begin{figure}[htp!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Gender Distribution in CHB-MIT Scalp EEG Database.jpeg}
+    \caption{Gender Distribution in CHB-MIT Scalp EEG Database}
+    \label{fig:gender_distribution}
+\end{figure}
+
+Figure \ref{fig:gender_distribution} depicts the gender distribution among the subjects, providing insight into the gender representation in the dataset.
+
+\subsection{Seizure Data Overview}
+
+Finally, we provide a Python plot visualizing the distribution of seizure and non-seizure files within the dataset.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Capture d’écran_30-7-2024_03034_www.kaggle.com.jpeg}
+    \caption{Distribution of Seizure and Non-Seizure Files}
+    \label{fig:seizure_non_seizure}
+\end{figure}
+
+Figure \ref{fig:seizure_non_seizure} displays the proportion of files containing seizures versus those without, aiding in the understanding of seizure occurrences within the dataset.
+
+
+\section{Data Preprocessing}
+\hspace{1em} Data preparation is an important stage in managing datasets. It involves integrating, structuring, and organizing essential information.\\ There are several critical primary processes involved in data preparation. It requires cleaning and preparing the data structure. The data is broken into parts due to the unique nature of the material.
+\subsection{Data Preprocessing Pipeline}
+\hspace{1em} To undertake data preprocessing and partition it, the illustrated pipeline is interconnected with the adjacent diagram. This diagram presented by figure \ref{fig: Data Preprocessing and spliting pipeline} subsequently provides a detailed explanation of the pipeline's structure.
+
+The process begins by handling a batch of epochs for each EEG file. For each epoch, a signal segment is loaded, creating an MNE Raw object specifically for that segment. This object undergoes filtering to remove unwanted frequencies. Subsequently, the Continuous Wavelet Transform (CWT) is computed to capture the signal's time-frequency characteristics. The resulting CWT data is then reshaped to facilitate further processing. Independent Component Analysis (ICA) is applied next to separate the signal into its underlying components, aiming to remove artifacts. Finally, the reshaped CWT data is normalized to standardize the feature scales, ensuring each feature contributes equally in subsequent analyses.
+        \begin{center}
+         \begin{figure}[h!]
+             \centering
+             \includegraphics[width=0.3\linewidth]{Capture d’écran_31-7-2024_02829_lucid.app.jpeg}
+             \caption{Data Preprocessing Pipeline}
+             \label{fig: Data Preprocessing and spliting pipeline}
+         \end{figure}
+        \end{center}
+        
+
+\subsection{Raw EDF Signal (MNE)}
+
+Once the EDF file is loaded, the signal is converted into a raw data format using the MNE-Python library, which facilitates various EEG data processing tasks \citep{Gramfort2013}. This transformation ensures that the data is ready for subsequent analyses by organizing it into a manageable structure. The MNE Raw object allows for streamlined access to the signal's metadata, channels, and sampling rates, essential for accurate data handling and manipulation.
+
+\subsection{Signal Parameters Extraction}
+
+Extracting signal parameters involves determining essential characteristics such as channel names, sampling rates, and the duration of recordings. This step is critical as it provides foundational information needed to correctly interpret the signal and apply appropriate preprocessing techniques. For instance, understanding the sampling rate is crucial for designing effective filters and time-frequency analyses.
+
+\subsection{Split Signal into Epochs}
+
+The continuous EEG signal is divided into smaller, manageable segments known as epochs. Epoching is necessary to isolate specific periods of interest within the signal, facilitating targeted analyses. This step involves specifying the length of each epoch and ensuring that the segments are aligned with relevant events or markers within the data.
+
+\subsection{Epoch Processing}
+The processing of EEG data is divided into manageable epochs, each representing a segment of the continuous signal. This approach allows for detailed analysis and more precise handling of the signal data. The following steps outline the detailed processing involved for each epoch.
+
+
+\subsubsection{Load Signal Segment}
+
+Each epoch, representing a segment of the continuous signal, is loaded individually. This segmentation allows for focused processing and analysis on smaller, discrete chunks of data, which can enhance the accuracy and efficiency of subsequent steps.
+
+\subsubsection{Create MNE Raw Object for Segment}
+
+For each loaded segment, an MNE Raw object is created anew. This process ensures that the segment retains all necessary metadata and structural integrity, enabling consistent and reliable preprocessing and analysis.
+
+\subsubsection{Filter Signal (1-50 Hz)}
+
+The signal is filtered within the 1-50 Hz frequency range to remove noise and artifacts outside the typical EEG frequency bands. This filtering enhances the signal quality by attenuating irrelevant frequencies, thus improving the reliability of subsequent analyses \citep{Widmann_2015}.
+
+\subsubsection{Compute CWT (Continuous Wavelet Transform)}
+
+The Continuous Wavelet Transform (CWT) is applied to the filtered signal to analyze its time-frequency characteristics. The CWT is defined as:
+
+\[
+CWT_x(a, b) = \frac{1}{\sqrt{|a|}} \int_{-\infty}^{\infty} x(t) \psi^*\left(\frac{t-b}{a}\right) dt
+\]
+
+where:
+- \( x(t) \) is the signal.
+- \( \psi(t) \) is the mother wavelet.
+- \( a \) is the scaling parameter.
+- \( b \) is the translation parameter.
+- \( \psi^*(t) \) is the complex conjugate of the mother wavelet \citep{Addison_2002}.
+
+CWT provides a detailed representation of the signal's frequency content over time, which is crucial for identifying transient events and patterns.
+
+\subsubsection{Reshape CWT Data}
+
+The output of the CWT is reshaped to a format suitable for further processing. This step typically involves organizing the data into a consistent structure that facilitates integration with subsequent analytical methods, such as machine learning algorithms.
+
+\subsubsection{Apply ICA}
+
+Independent Component Analysis (ICA) is performed to separate the EEG signal into its underlying independent sources. ICA assumes that the observed signals \( X \) are linear mixtures of independent sources \( S \) and can be represented as:
+
+\[
+X = AS
+\]
+
+where:
+- \( X \) is the matrix of observed signals.
+- \( A \) is the mixing matrix.
+- \( S \) is the matrix of independent sources.
+
+The goal of ICA is to find an unmixing matrix \( W \) such that:
+
+\[
+S = WX
+\]
+
+This helps in identifying and removing artifacts such as eye blinks and muscle activity, which can contaminate the EEG data \citep{Makeig_1996}.
+
+\subsubsection{Normalize Data}
+
+Normalization is applied to the processed data to ensure that all features contribute equally to the analysis. This step typically involves scaling the data to have a mean of zero and a standard deviation of one, thereby standardizing the input for downstream machine learning models.
+
+\subsection{Apply PCA (Before CNN)}
+
+Before inputting the data into a Convolutional Neural Network (CNN), Principal Component Analysis (PCA) is utilized to reduce the dimensionality of the dataset. PCA identifies the principal components that account for the most variance within the data. This dimensionality reduction not only mitigates the curse of dimensionality but also enhances the computational efficiency and performance of the CNN \citep{Jolliffe2016}.
+
+The transformation achieved by PCA can be expressed through the following equation:
+
+\[
+Z = XW
+\]
+
+where:
+- \( Z \) represents the matrix of principal components.
+- \( X \) is the original data matrix.
+- \( W \) is the matrix of eigenvectors corresponding to the principal components.
+
+In this context, each row of \( Z \) corresponds to a transformed observation in the principal component space, and each column corresponds to a distinct principal component. The matrix \( W \) is derived from the eigenvectors of the covariance matrix of \( X \).
+
+Through this transformation, PCA effectively projects the original data \( X \) onto a new coordinate system defined by the principal components, retaining the most significant features that explain the largest portion of variance in the data while reducing its dimensionality \citep{Jolliffe2016}.
+
+\section{CNN Feature Extraction}
+
+Convolutional Neural Networks (CNNs) have revolutionized the field of feature extraction due to their ability to identify and learn hierarchical patterns in data. This section outlines the CNN-based feature extraction process, highlighting its efficiency and effectiveness.
+
+\begin{enumerate}
+    \item \textbf{Batch Data (PCA Output)}: Initially, Principal Component Analysis (PCA) is employed to reduce the dimensionality of the data, making it more manageable for subsequent processing. The CNN then processes these PCA-reduced features in batches, optimizing computational efficiency and memory usage.
+    
+    \item \textbf{DataLoader}: The DataLoader is responsible for managing and feeding batched data into the CNN model. This ensures efficient data streaming, which is crucial for effective training and feature extraction.
+    
+    \item \textbf{CNN Model}: At the core of this process is the CNN model, which applies multiple convolutional layers to detect intricate patterns and extract meaningful features. The model condenses the data into a 16-dimensional feature vector, capturing complex relationships essential for accurate classification.
+\end{enumerate}
+
+\section{Further Dimensionality Reduction (PCA After CNN)}
+
+To enhance the efficiency and manageability of the extracted features, further dimensionality reduction is performed using PCA. This step plays a pivotal role in the overall feature extraction pipeline.
+
+\begin{itemize}
+    \item \textbf{Efficiency Enhancement}: By compressing the 16-dimensional features into a more compact form, the computational and storage requirements for subsequent processing stages are significantly reduced.
+    
+    \item \textbf{Feature Preservation}: PCA ensures that the most relevant features are retained, minimizing dimensionality without sacrificing important information.
+    
+    \item \textbf{Quantization}: The reduced features are quantized into 32-bit integers, standardizing the data format and optimizing storage and computational efficiency.
+\end{itemize}
+
+Then save the extracted and processed features for future use. This stage ensures the data is well-organized and easily accessible for subsequent analysis.
+
+\section{Feature Summarizing}
+
+Understanding the logic behind feature summarizing is crucial for ensuring accurate results in EEG data analysis. Given that the features extracted from CNN can be numerous and complex, selecting the most relevant features is essential for effective model training and evaluation. This section discusses the rationale and purpose of each feature.
+\subsection{Role of Time, Frequency, and Time-Frequency Domain Analysis in Feature Extraction}
+
+In EEG signal analysis, leveraging time, frequency, and time-frequency domain analyses is crucial for capturing diverse aspects of the data. Here’s a detailed examination of their roles:
+
+\subsubsection{Time-Domain Analysis}
+
+\textbf{Purpose}: Time-domain analysis examines how the signal evolves over time, providing insights into amplitude fluctuations and the overall characteristics of the signal.
+
+\begin{itemize}
+    \item \textbf{Extracted Features}: This includes statistical measures such as the mean (\(\mu\)), standard deviation (\(\sigma\)), skewness (\(\gamma_1\)), and kurtosis (\(\gamma_2\)), as well as temporal features like zero-crossing rate and autocorrelation.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Variability Analysis}: Offers a basic understanding of how the signal varies and its statistical properties.
+    \item \textbf{Behavioral Insights}: Tracks temporal variations, crucial for detecting patterns related to neurological conditions or events such as seizures.
+\end{itemize}
+
+\textbf{Mathematical Descriptions}:
+
+1. Mean: 
+   \[
+   \mu = \frac{1}{N} \sum_{i=1}^N x_i
+   \]
+   where \(N\) is the number of samples, and \(x_i\) represents each individual sample.
+
+2. Standard Deviation: 
+   \[
+   \sigma = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_i - \mu)^2}
+   \]
+   measuring the spread of the signal around the mean.
+
+3. Skewness: 
+   \[
+   \gamma_1 = \frac{1}{N \sigma^3} \sum_{i=1}^N (x_i - \mu)^3
+   \]
+   quantifies the asymmetry of the signal distribution.
+
+4. Kurtosis: 
+   \[
+   \gamma_2 = \frac{1}{N \sigma^4} \sum_{i=1}^N (x_i - \mu)^4 - 3
+   \]
+   assesses the "tailedness" of the signal distribution.
+
+\subsubsection{Frequency-Domain Analysis}
+
+\textbf{Purpose}: Frequency-domain analysis decomposes the signal into its frequency components, facilitating the examination of power distribution across different frequencies.
+
+\begin{itemize}
+    \item \textbf{Extracted Features}: This includes the Power Spectral Density (PSD) and power within specific frequency bands (e.g., delta, theta, alpha, beta).
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Frequency Characteristics}: Provides insights into how different frequency components contribute to the overall signal. Specific frequency bands may exhibit increased activity during certain cognitive or pathological states \cite{he2019frequency}.
+    \item \textbf{Noise Filtering}: By focusing on particular frequency bands, this analysis helps in reducing noise and enhancing relevant signal features.
+\end{itemize}
+
+\textbf{Mathematical Descriptions}:
+
+5. Power Spectral Density (PSD): 
+   \[
+   \text{PSD}(f) = \frac{1}{T} \left| \mathcal{F}\{x(t)\} \right|^2
+   \]
+   where \( \mathcal{F}\{x(t)\} \) represents the Fourier transform of the signal \(x(t)\), and \(T\) is the total duration of the signal.
+
+\subsubsection{Time-Frequency Domain Analysis}
+
+\textbf{Purpose}: Time-frequency analysis merges time and frequency information, delivering a detailed view of how the signal's frequency content changes over time.
+
+\begin{itemize}
+    \item \textbf{Extracted Features}: This includes the Continuous Wavelet Transform (CWT) and wavelet coefficients.
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Dynamic Analysis}: Crucial for identifying transient or non-stationary events, such as epileptic seizures, where both frequency and temporal aspects fluctuate dynamically.
+    \item \textbf{Comprehensive View}: Offers a detailed depiction of the signal’s behavior, capturing variations that might be missed by time-domain or frequency-domain analyses alone \cite{demanuele2017time}.
+\end{itemize}
+
+\textbf{Mathematical Descriptions}:
+
+6. Continuous Wavelet Transform (CWT):
+   \[
+   \text{CWT}(s, \tau) = \int_{-\infty}^{\infty} x(t) \psi^* \left( \frac{t - \tau}{s} \right) dt
+   \]
+   where \(\psi\) denotes the wavelet function, \(s\) is the scale parameter, and \(\tau\) is the translation parameter. The CWT provides a time-frequency representation of the signal, allowing for the analysis of how the frequency content evolves over time.
+
+\section{Integration of Domains}
+
+Combining features from time, frequency, and time-frequency domains allows for a holistic approach to feature extraction:
+
+\begin{itemize}
+    \item \textbf{Comprehensive Understanding}: Achieves a complete representation of the signal by capturing temporal dynamics and frequency characteristics.
+    \item \textbf{Improved Classification}: Enhances classification accuracy by offering a richer feature set that reflects various aspects of the signal’s behavior, leading to better detection and differentiation of conditions such as seizures.
+\end{itemize}
+
+%In essence, incorporating time, frequency, and time-frequency domain analyses into feature extraction facilitates a robust and detailed characterization of EEG signals, which is critical for accurate classification and analysis in applications like seizure detection and cognitive state monitoring \parencite{acharya2018deep, he2019frequency, schomer2012niedermeyer}.
+\section{Modeling Process and Comparative Study}
+
+In this chapter, we explore the implementation and analysis of various machine learning models for the effective classification of EEG data, with an emphasis on comparing the relative advantages and disadvantages of each model. The models assessed include \textbf{XGBoost} \cite{Chen2016}, \textbf{LightGBM} \cite{Ke2017}, and \textbf{Random Forest} \cite{Breiman2001}. These algorithms were selected due to their varied approaches to handling complex, high-dimensional datasets such as EEG signals \cite{Author2024}. The evaluation of these models, in conjunction with a structured tracking and monitoring approach facilitated by \textbf{MLflow} \cite{Zaharia2018}, allowed for a comprehensive assessment of performance across key metrics, including accuracy, F1 score, precision, and recall.
+
+\subsection{Technologies Employed}
+
+The technologies employed in this comparative study play crucial roles at different stages of the machine learning pipeline. These are outlined as follows:
+
+\begin{itemize}
+    \item \textbf{XGBoost}, \textbf{LightGBM}, \textbf{Random Forest}: These machine learning algorithms were employed for training and classification tasks \cite{Chen2016, Ke2017, Breiman2001}.
+    \item \textbf{MLflow}: Used for model tracking, experiment management, and comparative analysis of performance metrics \cite{Zaharia2018}.
+    \item \textbf{Streamlit}: Provided an interactive interface, enabling real-time tuning and visualization of model performance \cite{Author2024}.
+    \item \textbf{DAGsHub}: Integrated as a version control system for data science projects, facilitating reproducibility, collaboration, and model management via its support for both \textbf{Git} and \textbf{MLflow} pipelines \cite{Author2024}.
+    \item \textbf{GitHub}: Employed for continuous integration and continuous delivery (CI/CD) workflows, ensuring automated testing and deployment of models in the production environment \cite{OtherAuthor2023}.
+    \item \textbf{Docker}: Utilized to containerize the entire pipeline, enabling consistency across different environments and simplifying the deployment process \cite{Merkel2014}.
+\end{itemize}
+
+These technologies collectively formed an end-to-end pipeline, enhancing model development, deployment, and monitoring while ensuring the reproducibility and scalability of the results.
+
+\subsection{Comparative Evaluation and Metrics}
+
+The evaluation of the selected models was conducted through a robust experimental framework, employing MLflow for tracking multiple runs and comparing the models across the following key metrics: accuracy, F1 score, precision, recall, and execution time. Performance was validated using cross-validation techniques to ensure the generalizability of the models \cite{Author2024}. All experiments were conducted within a containerized environment using Docker to ensure consistency across development and production stages \cite{Merkel2014}.
+
+
+\section{XGBoost: Efficiency and Scalability}
+
+In this experiment, the Extreme Gradient Boosting (XGBoost) model was fine-tuned using a combination of hyperparameters designed to optimize performance when classifying seizure and non-seizure events in EEG data. XGBoost effectively balances speed and accuracy due to its ability to handle large datasets and offer scalability. The final hyperparameter values, determined via grid search, are summarized in Table \ref{tab:xgboost_hyperparameters}.
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Hyperparameters}
+\label{tab:xgboost_hyperparameters}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Value} \\ \hline
+n\_estimators & 250 \\ \hline
+max\_depth & 10 \\ \hline
+learning\_rate & 0.3 \\ \hline
+subsample & 0.8 \\ \hline
+colsample\_bytree & 0.9 \\ \hline
+gamma & 0.4 \\ \hline
+lambda & 0.4 \\ \hline
+alpha & 0.4 \\ \hline
+\end{tabular}
+\end{table}
+
+The chosen hyperparameters play key roles in the model's performance:
+\begin{itemize}
+    \item \textbf{n\_estimators}: The number of boosting rounds or trees.
+    \item \textbf{max\_depth}: Maximum depth of each tree, controlling the model's complexity.
+    \item \textbf{learning\_rate}: Step size at each boosting iteration.
+    \item \textbf{subsample}: The fraction of data to be randomly sampled for growing trees, preventing overfitting.
+    \item \textbf{colsample\_bytree}: The fraction of features to be sampled for each tree, enhancing robustness.
+    \item \textbf{gamma}: Minimum loss reduction required to split a node, controlling the model’s sensitivity to noise.
+    \item \textbf{lambda} and \textbf{alpha}: L2 and L1 regularization terms, respectively, which control overfitting by penalizing large coefficients.
+\end{itemize}
+
+After tuning, the XGBoost model produced the performance metrics shown in Table \ref{tab:xgboost_metrics}, demonstrating high levels of accuracy, precision, recall, and F1-score.
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Performance Metrics}
+\label{tab:xgboost_metrics}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+F1-score & 0.9706 \\ \hline
+Accuracy & 0.9706 \\ \hline
+Precision & 0.9722 \\ \hline
+Recall & 0.9706 \\ \hline
+\end{tabular}
+\end{table}
+
+The confusion matrix, illustrated in Table \ref{tab:xgboost_confusion}, provides further insight into the model's ability to correctly classify seizure and non-seizure events. The model correctly identified 255 seizure events and 275 non-seizure events, with a relatively low false positive and false negative rate.
+
+\begin{table}[H]
+\centering
+\caption{XGBoost Confusion Matrix}
+\label{tab:xgboost_confusion}
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{Predicted: Seizure} & \textbf{Predicted: Non-seizure} \\ \hline
+\textbf{Actual: Seizure} & 255 & 7 \\ \hline
+\textbf{Actual: Non-seizure} & 5 & 275 \\ \hline
+\end{tabular}
+\end{table}
+
+The final model's efficiency and scalability are evident in its ability to handle large EEG datasets while maintaining high performance metrics, making it a robust solution for seizure classification.
+
+\section{LightGBM: Handling Large-Scale Data}
+
+Light Gradient Boosting Machine (LightGBM) is a highly efficient gradient-boosting framework, specifically designed to handle large-scale data. Its key advantage lies in its ability to process large datasets at a faster rate without sacrificing accuracy. Unlike traditional gradient boosting, LightGBM implements techniques such as leaf-wise tree growth and histogram-based learning, which make it particularly well-suited for classification problems involving high-dimensional data, such as EEG signal classification.
+
+LightGBM's balance between minimizing prediction error and controlling model complexity.
+
+Table \ref{tab:lightgbm_hyperparameters} outlines the optimal hyperparameters selected via grid search, which were instrumental in achieving the desired performance.
+
+\begin{table}[H]
+\centering
+\caption{LightGBM Hyperparameters}
+\label{tab:lightgbm_hyperparameters}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Value} \\ \hline
+n\_estimators & 400 \\ \hline
+max\_depth & 20 \\ \hline
+learning\_rate & 0.3 \\ \hline
+subsample & 0.8 \\ \hline
+colsample\_bytree & 0.9 \\ \hline
+reg\_lambda & 0.7 \\ \hline
+reg\_alpha & 0.7 \\ \hline
+\end{tabular}
+\end{table}
+
+Each hyperparameter plays a crucial role in the model's behavior:
+\begin{itemize}
+    \item \textbf{n\_estimators}: Defines the number of boosting iterations or decision trees.
+    \item \textbf{max\_depth}: Controls the maximum depth of each tree, influencing the balance between underfitting and overfitting.
+    \item \textbf{learning\_rate}: Governs the contribution of each tree to the final prediction, facilitating better generalization.
+    \item \textbf{subsample}: Specifies the fraction of the training data used for constructing each tree, aiding in the prevention of overfitting.
+    \item \textbf{colsample\_bytree}: Sets the fraction of features randomly selected for each tree, improving the model's diversity.
+    \item \textbf{reg\_lambda} and \textbf{reg\_alpha}: L2 and L1 regularization parameters, respectively, which are instrumental in penalizing complex models and reducing overfitting.
+\end{itemize}
+
+Using these hyperparameters, the LightGBM model produced the performance metrics summarized in Table \ref{tab:lightgbm_metrics}. The results indicate high precision and recall, suggesting the model is capable of correctly identifying seizure and non-seizure events while maintaining balanced accuracy.
+
+\begin{table}[H]
+\centering
+\caption{LightGBM Performance Metrics}
+\label{tab:lightgbm_metrics}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+Precision & 0.9474 \\ \hline
+Accuracy & 0.9412 \\ \hline
+Recall & 0.9412 \\ \hline
+F1-Score & 0.9410 \\ \hline
+\end{tabular}
+\end{table}
+
+The confusion matrix for the LightGBM model, displayed in Table \ref{tab:lightgbm_confusion}, further elucidates its classification abilities. The model correctly identified 247 seizure events and 264 non-seizure events, while maintaining a relatively low rate of false positives and false negatives.
+
+\begin{table}[H]
+\centering
+\caption{LightGBM Confusion Matrix}
+\label{tab:lightgbm_confusion}
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{Predicted: Seizure} & \textbf{Predicted: Non-seizure} \\ \hline
+\textbf{Actual: Seizure} & 247 & 13 \\ \hline
+\textbf{Actual: Non-seizure} & 8 & 264 \\ \hline
+\end{tabular}
+\end{table}
+
+Overall, LightGBM demonstrated superior capability in handling large-scale EEG data, striking a balance between computational efficiency and predictive accuracy. Its inherent scalability allows it to process high-dimensional data effectively, making it a robust model for this task.
+
+\section{Decision Tree: Simplicity and Interpretability}
+
+For the Decision Tree model, the best parameters were as follows:
+
+\begin{table}[H]
+\centering
+\caption{Decision Tree Hyperparameters}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Parameter} & \textbf{Value} \\ \hline
+criterion & entropy \\ \hline
+max\_depth & 20 \\ \hline
+min\_samples\_split & 25 \\ \hline
+min\_samples\_leaf & 10 \\ \hline
+\end{tabular}
+\end{table}
+
+The performance of the Decision Tree model is summarized below:
+
+\begin{table}[H]
+\centering
+\caption{Decision Tree Performance Metrics}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Metric} & \textbf{Value} \\ \hline
+f1\_score & 0.8518 \\ \hline
+accuracy & 0.8529 \\ \hline
+precision & 0.8643 \\ \hline
+recall & 0.8529 \\ \hline
+\end{tabular}
+\end{table}
+
+The confusion matrix for the Decision Tree model is as follows:
+
+\begin{table}[H]
+\centering
+\caption{Decision Tree Confusion Matrix}
+\begin{tabular}{|c|c|c|}
+\hline
+ & \textbf{Predicted: Seizure} & \textbf{Predicted: Non-seizure} \\ \hline
+\textbf{Actual: Seizure} & 230 & 30 \\ \hline
+\textbf{Actual: Non-seizure} & 45 & 240 \\ \hline
+\end{tabular}
+\end{table}
+
+
+\section{Conclusion}
+
+The models used in this experiment—XGBoost, LightGBM, Decision Tree, demonstrated varying levels of performance in classifying EEG signals for seizure detection. XGBoost emerged as the most effective model, achieving the highest accuracy and F1 score, while LightGBM also performed well in handling large-scale data. Decision Tree provided slightly lower accuracy but are more interpretable. Each model's confusion matrix shows its ability to differentiate between seizure and non-seizure states.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{learning_curve.png}
+\caption{Learning Rate Curve for Decision Tree}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\linewidth]{decision_tree_curve.png}
+\caption{Decision Tree Learning Curve}
+\end{figure}
+\subsection{Technological Infrastructure and Interface Integration}
+
+The entire modeling lifecycle—training, evaluation, and comparison—was tracked using \textbf{MLflow}. This ensured transparency in the modeling process, with metrics such as accuracy, precision, and recall logged for each model.
+
+\textbf{Streamlit} was integrated to provide a real-time interactive interface for model performance visualization and hyperparameter tuning. Key features include:
+\begin{itemize}
+    \item \textbf{Real-time visualization:} Users can see changes in model performance based on hyperparameter tuning.
+    \item \textbf{Dynamic comparison:} Compare different models across key metrics.
+    \item \textbf{Error analysis:} Detailed error reports are available to fine-tune models.
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.9\linewidth]{Capture d’écran_22-9-2024_143657_dagshub.com.jpeg} % Replace with your image path
+    \caption{MLflow Comparison of Model Metrics: Accuracy, F1 Score, Precision, and Recall}
+    \label{fig:MLflow_Comparison_of_Model_Metrics}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{streamlit_interface.png} % Replace with your image path
+    \caption{Streamlit interface for real-time model performance visualization.}
+    \label{fig:Streamlit_Interface}
+\end{figure}
+
+\subsection{Comparative Study: Proposed Approach vs. Baseline Models}
+
+\textbf{Baseline Models:}
+\begin{itemize}
+    \item No early stopping or regularization applied.
+    \item No hyperparameter tuning.
+\end{itemize}
+
+\textbf{Proposed Approach:}
+\begin{itemize}
+    \item Early stopping and regularization (L1, L2) applied.
+    \item Hyperparameter tuning using real-time feedback via Streamlit.
+\end{itemize}
+
+The proposed approach showed significant improvements, with \textbf{XGBoost} achieving \textbf{97\% accuracy} compared to \textbf{84\%} in the baseline model.
+
+\begin{table}[htp!]
+\caption{Comparative Analysis of Model Performance on EEG Data}
+\centering
+\begin{tabular}{@{}p{2cm}p{1.5cm}p{1.5cm}p{1cm}p{1cm}@{}}
+\hline
+\textbf{Model} & \textbf{Accuracy (\%)} & \textbf{F1 Score} & \textbf{Precision} & \textbf{Recall} \\ \hline
+XGBoost & 97 & 0.96 & 0.97 & 0.95 \\ 
+LightGBM & 94 & 0.93 & 0.94 & 0.92 \\ 
+Random Forest & 84 & 0.82 & 0.83 & 0.81 \\ 
+ \hline
+\end{tabular}
+\label{table:comparative_analysis}
+\end{table}
+
+\section{Discussion of Results}
+
+The results from the comparative analysis reveal important insights about the performance of various machine learning models on EEG data classification. \textbf{XGBoost} emerged as the top performer, with an accuracy of \textbf{97\%}, due to its strong regularization capabilities and efficient gradient boosting framework \parencite{chen2016xgboost}. \textbf{LightGBM} followed closely, benefiting from its unique optimizations like GOSS and EFB, although its heuristic optimizations occasionally led to slight trade-offs in accuracy \parencite{ke2017lightgbm}.
+
+\textbf{Random Forest} performed well but lagged behind with an accuracy of \textbf{84\%}. This can be explained by its limitations in capturing the non-linear dynamics of EEG signals, which XGBoost and LightGBM handle more effectively due to their gradient boosting frameworks \parencite{breiman2001random}. 
+
+Incorporating \textbf{MLflow} and \textbf{Streamlit} into the workflow provided substantial benefits, allowing for real-time performance monitoring and rapid model adjustments, ultimately leading to a more refined and optimized model selection.
+
+\section{Conclusion}
+\hspace{1em}In this chapter, we delved into an elaborate elucidation of the data description, progressing to the phase of visualization and exploration and then processing procedures that have been employed. The subsequent chapter will center around the diverse modeling strategies executed on this data, along with a comparative analysis of their outcomes.
+
+
+
+
